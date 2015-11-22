@@ -14,7 +14,7 @@
 /def mcp21_send_negotiation = \
 	/eval /mcp21_set_world ${world_name}%;\
 	/mcp21_send_packages x %{mcp21_packages}%;\
-	/mcp21_send mcp-negotiate-end
+	/mcp21_send mcp-negotiate-end%;\
 
 /def mcp21_begin_negotiation =
 
@@ -23,3 +23,8 @@
 ;	/eval /echo -e \% ${world_name} CAN \%{mcp_tag_package} from \%{mcp_tag_min_version} to \%{mcp_tag_max_version}
 
 /def mcp21_mcp-negotiate-end =
+
+/set mcp21_mcp_negotiate_min_version=1.0
+/set mcp21_mcp_negotiate_max_version=2.0
+/mcp21_add_package mcp-negotiate
+

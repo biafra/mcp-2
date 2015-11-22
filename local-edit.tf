@@ -43,7 +43,7 @@
 ;
 /def le_edit_invoke = \
 	/eval /set le_world=${world_name}%;\
-	/le_do_edit %{le_world} %*
+	/le_do_edit %{le_world} %* %;\
 
 ; /le_edit_done [le_edit_invoke args]
 ; called by /le_do_edit when its blocking edit completes.

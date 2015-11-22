@@ -1,5 +1,5 @@
-;/set mcp21_tmpdir=/tmp
-/set mcp21_tmpdir=/homes/bjj/tmp
+/set mcp21_tmpdir=/tmp
+;/set mcp21_tmpdir=/homes/bjj/tmp
 
 ;;
 ;; END OF USER CONFIGURATION
@@ -31,7 +31,9 @@
 /def mcp21_login_internal = \
 	/mcp_gen_auth_key%;\
 	/mcp21_begin_negotiation%;\
-	/send -w #\$#mcp authentication-key: $(/mcp_show_auth_key) version: 2.1 to: 2.1%;\
+	/send -w #\$#mcp authentication-key: $(/mcp_show_auth_key) version: 2.1 to: 2.1
+
+/def -Ttiny.moo -p20001 -aGg -mregexp -t'^#\$#mcp-negotiate-end' = \
 	/mcp21_send_negotiation
 
 /def mcp21_login = /mcp21_login_internal 2.1 2.1
@@ -56,10 +58,10 @@
 		/test regmatch('(.*):', {1})%;\
 		/let name=mcp_tag_$[replace('*','_',replace('-','_',{P1}))]%;\
 		/if (0 == strchr({2}, '"')) \
-			/test regmatch(strcat('^"(([^"]|', char(92), char(92),'")*)(?<!', char(92), char(92), ')"(.*)'), {-1})%;\
+			/test regmatch(strcat('^"(([^"]|', char(92), char(92),'")*)"(.*)'), {-1})%;\
 			/let val=%{P1}%;\
 			/let rest=%{P3}%;\
-			/while (regmatch(strcat('(.*)',char(92),char(92),'"(.*)'), val)) \
+			/while (regmatch('(.*)\\\\"(.*)', val)) \
 				/let val=%P1"%P2%;\
 			/done%;\
 			/eval /set %{name}=\%{val}%;\

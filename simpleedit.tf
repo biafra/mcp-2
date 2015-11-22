@@ -4,7 +4,7 @@
 /def simpleedit_done = \
 	/let key=$[rand()]%;\
 	/mcp21_set_world %{le_world}%;\
-	/mcp21_send  dns-org-mud-moo-simpleedit-set %* content*: "" _data-tag: %{key}%;\
+	/mcp21_send dns-org-mud-moo-simpleedit-set %* content*: "" _data-tag: %{key}%;\
 	/mcp21_send_file %{key} content %{le_file}%;\
 	/mcp21_send_end %{key}
 
